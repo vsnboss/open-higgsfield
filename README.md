@@ -1,3 +1,37 @@
+# VSN self-host fork
+
+This fork is being adapted for VSN's own generation studio rather than a hosted Higgsfield-style app shell.
+
+## Provider status
+
+The upstream project leaves `HF_API_BASE_URL` blank and assumes a generation gateway with:
+
+- `POST /{model}`
+- `Authorization: Key <id:secret>`
+- queued responses containing `request_id`
+
+The VSN branch adds direct support for fal.ai's public Queue API. Set:
+
+```bash
+HF_API_BASE_URL=https://queue.fal.run
+```
+
+The client now follows the absolute `status_url` and `response_url` returned by fal for each queued request instead of assuming the upstream private-gateway status path. This keeps the existing catalog and UI architecture intact.
+
+## Current VSN implementation gate
+
+Phase 1 is deliberately narrow:
+
+1. preserve the upstream studio UI and model catalog;
+2. prove direct model submission + polling through fal;
+3. keep prompts/settings/history traceable;
+4. do not redesign the studio before generation works;
+5. replace the Vercel Blob upload dependency in the next phase with VSN-controlled storage before calling the deployment fully self-hosted.
+
+The generation key remains server-side in the existing httpOnly-cookie flow. Do not commit API keys to this repository.
+
+---
+
 # OpenHiggsfield AI — Open-Source Alternative to Higgsfield AI
 
 > **The free, open-source alternative to Higgsfield AI.** Generate images and
