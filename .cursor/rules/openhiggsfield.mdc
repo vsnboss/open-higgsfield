@@ -1,0 +1,28 @@
+---
+description: How to run and use this OpenHiggsfield studio from Cursor
+alwaysApply: true
+---
+
+# OpenHiggsfield (local studio)
+
+This repo is the open-source Higgsfield studio from https://github.com/wide-trace/open-higgsfield.
+
+## Run
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Studio URL: http://localhost:3000
+
+## Generate
+
+- The Next.js server talks to `https://platform.higgsfield.ai` (`HF_API_BASE_URL` in `.env`).
+- The user pastes their Higgsfield platform key in the UI as `id:secret` (from https://cloud.higgsfield.ai / https://console.higgsfield.ai). It is stored in an httpOnly cookie.
+- Do not put the platform key in `.env` or commit it.
+- Image/video uploads need `OPEN_HIGGSFIELD_READ_WRITE_TOKEN` (a Vercel Blob read-write token). Prompt-only generations work without it.
+
+## Cursor
+
+Prefer this local studio for UI work. The official Higgsfield Cursor plugin/MCP can generate from chat if the user authenticates it separately.
